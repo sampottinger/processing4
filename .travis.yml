@@ -10,15 +10,15 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install ant-optional
   - sudo apt-get install wget
-  - sudo apt-get install xvfb
   - wget --no-check-certificate https://www-us.apache.org/dist//ant/binaries/apache-ant-1.10.7-bin.tar.gz
   - tar -xzvf apache-ant-1.10.7-bin.tar.gz
   - export PATH=`pwd`/apache-ant-1.10.7/bin:$PATH
 
+services:
+  - xvfb
+
 before_script:
   - export DISPLAY=:99.0
-  # Thanks https://stackoverflow.com/questions/52504825/how-to-install-jdk-11-under-ubuntu
-  - sh -e /etc/init.d/xvfb start
   - cd build
 
 script:
