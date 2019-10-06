@@ -7,11 +7,12 @@ jdk:
   - openjdk11
 
 before_install:
-  - sudo add-apt-repository ppa:openjdk-r/ppa -y
   - sudo apt-get -qq update
-  - sudo apt-get install openjdk-11-jdk
-  - sudo apt-get install ant
   - sudo apt-get install ant-optional
+  - sudo apt-get install wget
+  - wget --no-check-certificate https://www.apache.org/dist/ant/binaries/apache-ant-1.10.1-bin.tar.gz
+  - tar -xzvf apache-ant-1.10.1-bin.tar.gz
+  - export PATH=`pwd`/apache-ant-1.10.1/bin:$PATH
 
 before_script:
   - cd build
