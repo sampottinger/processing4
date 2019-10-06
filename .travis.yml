@@ -1,0 +1,14 @@
+git:
+  depth: 1
+
+language: java
+
+jdk:
+  - openjdk11
+
+before_script:
+  - cd build
+
+script:
+  - ant clean
+  - ant build
