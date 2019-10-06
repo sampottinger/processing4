@@ -10,13 +10,15 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install ant-optional
   - sudo apt-get install wget
+  - sudo apt-get install mesa-utils libgl1-mesa-swx11 libgl1-mesa-swx11-dev xvfb
   - wget --no-check-certificate https://www-us.apache.org/dist//ant/binaries/apache-ant-1.10.7-bin.tar.gz
   - tar -xzvf apache-ant-1.10.7-bin.tar.gz
   - export PATH=`pwd`/apache-ant-1.10.7/bin:$PATH
 
 before_script:
   - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+  # Thanks https://stackoverflow.com/questions/28837117/travis-ci-run-lwjgl-tests-in-non-headless-environment
+  - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1400x900x24 -ac +extension GLX +render
   - cd build
 
 script:
