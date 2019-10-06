@@ -7,6 +7,7 @@ jdk:
   - openjdk11
 
 before_install:
+  - sudo add-apt-repository ppa:openjdk-r/ppa
   - sudo apt-get -qq update
   - sudo apt-get install openjdk-11-jdk
   - sudo apt-get install ant
