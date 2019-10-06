@@ -11,4 +11,4 @@ before_script:
 
 script:
   - ant clean
-  - ant build
+  - ant build -lib ../core/library-test/junit-4.8.1.jar -lib ../core/library-test/mockito-all-1.10.19.jar
