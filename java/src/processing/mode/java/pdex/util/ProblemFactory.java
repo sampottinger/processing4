@@ -1,5 +1,9 @@
 package processing.mode.java.pdex.util;
 
+import java.util.List;
+import java.util.OptionalInt;
+import java.util.stream.IntStream;
+
 import processing.app.Problem;
 import processing.app.ui.Editor;
 import processing.mode.java.preproc.issue.PdePreprocessIssue;
