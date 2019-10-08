@@ -1,3 +1,5 @@
+**Note that this is a fork of the official processing4 at https://github.com/processing/processing4**
+
 This is an experimental fork to attempt the move to JDK 11. Because that's a major, API-breaking change, it would be Processing 4. 
 
 I'm working with Sam Pottinger to incorporate [his changes](https://github.com/sampottinger/processing) to see if that can be the basis for this new release. Getting things moved to OpenJDK 11 will help the longevity of the project.
