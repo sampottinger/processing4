@@ -1240,16 +1240,14 @@ public class PSurfaceJOGL implements PSurface {
   }
 
   static Map<Integer, CursorInfo> cursors = new HashMap<>();
-  static Map<Integer, String> cursorNames = new HashMap<>();
-  static {
-    cursorNames.put(PConstants.ARROW, "arrow");
-    cursorNames.put(PConstants.CROSS, "cross");
-    cursorNames.put(PConstants.WAIT, "wait");
-    cursorNames.put(PConstants.MOVE, "move");
-    cursorNames.put(PConstants.HAND, "hand");
-    cursorNames.put(PConstants.TEXT, "text");
-  }
-
+  static Map<Integer, String> cursorNames = Map.of(
+    PConstants.ARROW, "arrow",
+    PConstants.CROSS, "cross",
+    PConstants.WAIT, "wait",
+    PConstants.MOVE, "move",
+    PConstants.HAND, "hand",
+    PConstants.TEXT, "text"
+  );
 
   public void setCursor(int kind) {
     if (!cursorNames.containsKey(kind)) {
