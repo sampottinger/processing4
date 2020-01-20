@@ -53,7 +53,6 @@ public class PdeParseTreeListener extends ProcessingBaseListener {
   private static final String VERSION_STR = "3.0.0";
   private static final String SIZE_METHOD_NAME = "size";
   private static final String FULLSCREEN_METHOD_NAME = "fullScreen";
-  private final int tabSize;
 
   private String sketchName;
   private boolean isTesting;
@@ -73,7 +72,8 @@ public class PdeParseTreeListener extends ProcessingBaseListener {
 
   private String sketchWidth;
   private String sketchHeight;
-  private String sketchRenderer;
+  private String sketchRenderer = null;
+  private String sketchOutputFilename = null;
 
   private boolean sizeRequiresRewrite = false;
   private boolean sizeIsFullscreen = false;
@@ -100,7 +100,6 @@ public class PdeParseTreeListener extends ProcessingBaseListener {
 
     rewriter = new TokenStreamRewriter(tokens);
     sketchName = newSketchName;
-    tabSize = newTabSize;
     destinationPackageName = newDestinationPackageName;
 
     pdeParseTreeErrorListenerMaybe = Optional.empty();
@@ -622,9 +621,14 @@ public class PdeParseTreeListener extends ProcessingBaseListener {
               sketchRenderer.equals("P3D") ||
               sketchRenderer.equals("OPENGL") ||
               sketchRenderer.equals("JAVA2D") ||
+              sketchRenderer.equals("PDF") ||
               sketchRenderer.equals("FX2D"))) {
             thisRequiresRewrite = false;
           }
+        }
+
+        if (argsContext.getChildCount() > 5) {
+          sketchOutputFilename = argsContext.getChild(6).getText();
         }
       }
 
@@ -1003,6 +1007,10 @@ public class PdeParseTreeListener extends ProcessingBaseListener {
 
       if (sketchRenderer != null) {
         argJoiner.add(sketchRenderer);
+      }
+
+      if (sketchOutputFilename != null) {
+        argJoiner.add(sketchOutputFilename);
       }
 
       settingsInner = String.format("size(%s);", argJoiner.toString());
