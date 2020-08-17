@@ -760,29 +760,23 @@ public class PGraphicsOpenGL extends PGraphics {
 
   @Override
   public boolean saveImpl(String filename) {
-//    return super.save(filename); // ASYNC save frame using PBOs not yet available on Android
+    // ASYNC save frame using PBOs not yet available on Android
+    //return super.save(filename);
 
     if (getHint(DISABLE_ASYNC_SAVEFRAME)) {
-      saveTargetMaybe = Optional.of(filename);
-
-      if (!drawing) {
-        beginDraw();
+      // Act as an opaque surface for the purposes of saving.
+      if (primaryGraphics) {
+        int prevFormat = format;
+        format = RGB;
+        boolean result = super.saveImpl(filename);
+        format = prevFormat;
+        return result;
       }
       flush();
       updatePixelSize();
       endDraw(); // Briefly stop drawing
 
-      synchronized(saveBlocker) {
-        try {
-          while (saveTargetMaybe.isPresent()) {
-            saveBlocker.wait();
-          }
-          beginDraw(); // Resume drawing
-          return true;
-        } catch (InterruptedException e) {
-          return false;
-        }
-      }
+      return super.saveImpl(filename)
     }
 
     boolean needEndDraw = false;
@@ -5602,10 +5596,13 @@ public class PGraphicsOpenGL extends PGraphics {
   // SAVE
 
 
+  // need to call save() to ensure 1) path is correct and 2) pixels are loaded
+  /*
   @Override
   public boolean save(String filename) {
     return saveImpl(filename);
   }
+  */
 
 
   @Override
