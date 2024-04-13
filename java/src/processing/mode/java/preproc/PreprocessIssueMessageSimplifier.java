@@ -375,6 +375,7 @@ public class PreprocessIssueMessageSimplifier {
 
       ST messageTemplate = new ST (getLocalStr("editor.status.missing.default"), '$', '$');
       messageTemplate.add("character", missingToken);
+      messageTemplate.add("linenumber", line);
   
       return Optional.of(
           new PdeIssueEmitter.IssueMessageSimplification(messageTemplate.render())
@@ -692,6 +693,7 @@ public class PreprocessIssueMessageSimplifier {
 
         ST messageTemplate = new ST(getLocalStr("editor.status.error.syntaxdefault"), '$', '$');
         messageTemplate.add("statement", getOffendingArea(message));
+        messageTemplate.add("linenumber", line);
 
         return Optional.of(
             new PdeIssueEmitter.IssueMessageSimplification(messageTemplate.render())
